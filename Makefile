@@ -4,7 +4,9 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -Iincludes
 
 SRC = src
-ROOT = libft_core
+CORE = libft_core
+UTILS = utils
+GNL = get_next_line
 BUILD_DIR =	build
 
 LIBFT_CORE_FILES = ft_isalpha.c \
@@ -21,6 +23,7 @@ LIBFT_CORE_FILES = ft_isalpha.c \
 		ft_strlcat.c \
 		ft_toupper.c \
 		ft_tolower.c \
+		ft_str_capitalise.c \
 		ft_strchr.c \
 		ft_strrchr.c \
 		ft_strncmp.c \
@@ -28,13 +31,20 @@ LIBFT_CORE_FILES = ft_isalpha.c \
 		ft_memcmp.c \
 		ft_strnstr.c \
 		ft_atoi.c \
+		ft_abs.c \
+		ft_sign.c \
+		ft_base_to_long.c \
 		ft_calloc.c \
+		ft_realloc.c \
 		ft_strdup.c \
 		ft_substr.c \
 		ft_strjoin.c \
 		ft_strtrim.c \
 		ft_split.c \
 		ft_itoa.c \
+		ft_double_to_str.c \
+		ft_lltoa.c \
+		ft_ultoa.c \
 		ft_strmapi.c \
 		ft_striteri.c \
 		ft_putchar_fd.c \
@@ -51,16 +61,24 @@ LIBFT_CORE_FILES = ft_isalpha.c \
 		ft_lstiter_bonus.c \
 		ft_lstmap_bonus.c
 
+UTILS_FILES = compare_util.c \
+		time_func.c \
+		hash_code.c
 
-CORE_FIlES = $(addprefix $(SRC)/$(ROOT)/, $(LIBFT_CORE_FILES))
-CORE_OBJ_FIlES = $(CORE_FIlES:%.c=$(BUILD_DIR)/%.o)
+GNL_FILES = get_next_line.c
 
-BUILD_DIRS := $(sort $(dir $(CORE_OBJ_FIlES)))
+
+C_FIlES = $(addprefix $(SRC)/$(CORE)/, $(LIBFT_CORE_FILES))
+C_FIlES += $(addprefix $(SRC)/$(UTILS)/, $(UTILS_FILES))
+C_FIlES += $(addprefix $(SRC)/$(GNL)/, $(GNL_FILES))
+C_OBJ_FIlES = $(C_FIlES:%.c=$(BUILD_DIR)/%.o)
+
+BUILD_DIRS := $(sort $(dir $(C_OBJ_FIlES)))
 
 all : $(NAME)
 
-${NAME} : $(BUILD_DIRS) $(CORE_OBJ_FIlES)
-	ar rcs $(NAME) $(CORE_OBJ_FIlES)
+${NAME} : $(BUILD_DIRS) $(C_OBJ_FIlES)
+	ar rcs $(NAME) $(C_OBJ_FIlES)
 
 clean :
 	rm -rf $(BUILD_DIR)
@@ -74,7 +92,6 @@ $(BUILD_DIRS):
 	mkdir -p $@
 
 $(BUILD_DIR)/%.o : %.c | $(dir $@)
-# 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONY : all clean fclean f re 
