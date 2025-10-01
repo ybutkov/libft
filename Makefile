@@ -7,6 +7,7 @@ SRC = src
 CORE = libft_core
 UTILS = utils
 GNL = get_next_line
+STRUCTURES = structures
 BUILD_DIR =	build
 
 LIBFT_CORE_FILES = ft_isalpha.c \
@@ -67,10 +68,15 @@ UTILS_FILES = compare_util.c \
 
 GNL_FILES = get_next_line.c
 
+STRUCTURES_FILES = base_stack/stack_base_basic.c \
+		base_stack/stack_base_core.c \
+		base_stack/stack_base_operations.c
+
 
 C_FIlES = $(addprefix $(SRC)/$(CORE)/, $(LIBFT_CORE_FILES))
 C_FIlES += $(addprefix $(SRC)/$(UTILS)/, $(UTILS_FILES))
 C_FIlES += $(addprefix $(SRC)/$(GNL)/, $(GNL_FILES))
+C_FIlES += $(addprefix $(SRC)/$(STRUCTURES)/, $(STRUCTURES_FILES))
 C_OBJ_FIlES = $(C_FIlES:%.c=$(BUILD_DIR)/%.o)
 
 BUILD_DIRS := $(sort $(dir $(C_OBJ_FIlES)))
