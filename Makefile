@@ -27,6 +27,7 @@ LIBFT_CORE_FILES = ft_isalpha.c \
 		ft_str_capitalise.c \
 		ft_strchr.c \
 		ft_strrchr.c \
+		ft_strcmp.c \
 		ft_strncmp.c \
 		ft_memchr.c \
 		ft_memcmp.c \
